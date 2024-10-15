@@ -1,11 +1,24 @@
 body {
-
+    font-family: 'Arial';
+    background: url("images/table.png");
+    text-align: center;
+    background-size: cover;
+    font-weight: bold;
 }
 
 h1 {
     color: goldenrod;
 }
 
-#message-el {
-    
+p {
+    color: white;
+}
+
+button {
+    color: green;
+    background-color: goldenrod;
+    width: 150px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    border-radius: 10px 10px;
 }
