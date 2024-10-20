@@ -2,26 +2,30 @@
 
 var firstCard = 10;
 var secondCard = 4;
-var hasBlackjack = false;
-var isAlive = true;
+var cards = [];
+var isAlive = false;
 var messageEl = document.getElementById("message-el");
 var sumEl = document.getElementById("sum-el");
 var cardsEl = document.getElementById("cards-el");
 
-var sum = firstCard + secondCard;
 
 function renderGame() {
-    if(isAlive == true) {
+    var sum = 0;
+    if(isAlive) {
         for(let i = 0; i < cards.length; i++) {
             sum+=cards[i];
             cardsEl.innerHTML += cards[i] + " ";
         }
         sumEl.innerHTML = "Sum: " + sum;
         if(sum > 21) {
+            messageEl.innerHTML = "You are out of the game";
             isAlive = false;
+
         } else if(sum == 21){
-            isAlive = true;
+            messageEl.innerHTML = "You got blackjack";
+            isAlive = false;
         } else {
+            messageEl.innerHTML = "Do you want to draw a new card?";
             isAlive = true;
         }
     }
@@ -30,18 +34,28 @@ function renderGame() {
 function newCard() {
     var card = getRandomCard();
     cards.push(card);
+    if(isAlive) {
+        cardsEl.innerHTML = "Cards: "
+    }
     renderGame();
 }
 
 function startGame() {
-    var cards = [];
-    isAlive = true;
-    let rand1 = getRandomCard();
-    let rand2 = getRandomCard();
-    firstCard = rand1;
-    secondCard = rand2;
-    cards = [firstCard, secondCard];
-    renderGame();
+    if(isAlive == false) {
+        sumEl.innerHTML = "Sum: "
+        cardsEl.innerHTML = "Cards: ";
+        cards = [];
+        isAlive = true;
+        let rand1 = getRandomCard();
+        let rand2 = getRandomCard();
+        firstCard = rand1;
+        secondCard = rand2;
+        cards.push(firstCard);
+        cards.push(secondCard);
+        renderGame();
+    } else {
+        messageEl.innerHTML = "The game has started";
+    }
 }
 
 function getRandomCard() {
