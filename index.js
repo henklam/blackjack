@@ -7,6 +7,7 @@ var isAlive = false;
 var messageEl = document.getElementById("message-el");
 var sumEl = document.getElementById("sum-el");
 var cardsEl = document.getElementById("cards-el");
+var previousEl = document.getElementById("previous-el");
 
 
 function renderGame() {
@@ -20,10 +21,12 @@ function renderGame() {
         if(sum > 21) {
             messageEl.innerHTML = "You are out of the game";
             isAlive = false;
+            previousEl.innerHTML += sum + " ";
 
         } else if(sum == 21){
             messageEl.innerHTML = "You got blackjack";
             isAlive = false;
+            previousEl.innerHTML += sum + " ";
         } else {
             messageEl.innerHTML = "Do you want to draw a new card?";
             isAlive = true;
