@@ -8,6 +8,12 @@ var messageEl = document.getElementById("message-el");
 var sumEl = document.getElementById("sum-el");
 var cardsEl = document.getElementById("cards-el");
 var previousEl = document.getElementById("previous-el");
+if(localStorage.getItem("previous")==null) {
+    var previous = [];
+} else {
+    var previous = JSON.parse(localStorage.getItem("previous"));
+    printPrev();
+}
 
 
 function renderGame() {
@@ -21,16 +27,27 @@ function renderGame() {
         if(sum > 21) {
             messageEl.innerHTML = "You are out of the game";
             isAlive = false;
-            previousEl.innerHTML += sum + " ";
+            previous.push(sum);
+            localStorage.setItem("previous", JSON.stringify(previous));
+            printPrev();
 
         } else if(sum == 21){
             messageEl.innerHTML = "You got blackjack";
             isAlive = false;
-            previousEl.innerHTML += sum + " ";
+            previous.push(sum);
+            localStorage.setItem("previous", JSON.stringify(previous));
+            printPrev();
         } else {
             messageEl.innerHTML = "Do you want to draw a new card?";
             isAlive = true;
         }
+    }
+}
+
+function printPrev() {
+    previousEl.innerHTML = "Previous scores: ";
+    for(let i = 0; i < previous.length; i++) {
+        previousEl.innerHTML += previous[i] + " ";
     }
 }
 
@@ -47,6 +64,7 @@ function startGame() {
     if(isAlive == false) {
         sumEl.innerHTML = "Sum: "
         cardsEl.innerHTML = "Cards: ";
+        printPrev();
         cards = [];
         isAlive = true;
         let rand1 = getRandomCard();
